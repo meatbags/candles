@@ -1,1 +1,1 @@
-{"version":3,"file":"candles.js","sources":["../src/candles.js"],"sourcesContent":["// hello world\r\n"],"names":[],"mappings":";;;AAAA,cAAc;;;;"}
+{"version":3,"file":"candles.js","sources":["../src/modules/Graph.js"],"sourcesContent":["\r\nfunction Graph() {\r\n  this.val = 1;\r\n  console.log('hello world?');\r\n}\r\n\r\nexport { Graph };\r\n"],"names":[],"mappings":";;;AACA,SAAS,KAAK,GAAG;EACf,IAAI,CAAC,GAAG,GAAG,CAAC,CAAC;EACb,OAAO,CAAC,GAAG,CAAC,cAAc,CAAC,CAAC;CAC7B;;;;;;;;;;"}
