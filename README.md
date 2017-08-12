@@ -1,2 +1,6 @@
 # candles
-beautiful candlestick graphs
+
+Beautiful candlestick graphs in Canvas.
+
+## get
+## use

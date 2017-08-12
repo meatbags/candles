@@ -1,0 +1,26 @@
+{
+  "name": "candles",
+  "version": "1.0.0",
+  "description": "Beautiful candlestick graphs in Canvas.",
+  "main": "rollup.config.js",
+  "scripts": {
+    "build": "rollup -c",
+    "build-uglify": "rollup -c && uglifyjs build/candles.js -cm > build/candles.min.js",
+    "dev": "rollup -c -w -m"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meatbags/candles.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/meatbags/candles/issues"
+  },
+  "homepage": "https://github.com/meatbags/candles#readme",
+  "devDependencies": {
+    "rollup": "^0.47.2",
+    "rollup-watch": "^4.3.1",
+    "uglify-js": "^3.0.27"
+  }
+}
