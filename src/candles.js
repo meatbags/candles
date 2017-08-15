@@ -5,41 +5,23 @@ var Candles = function(params) {
     var params = {};
   }
 
-  this.append = params.append || false;
-  this.width = params.width || 500;
-  this.height = params.height || 400;
-  this.increaseStroke = params.increaseStroke || 'black';
-  this.decreaseStroke = params.decreaseStroke || 'black';
-  this.volumeStroke = params.volumeStroke || 'grey';
-  this.increaseFill = params.increaseFill || 'white';
-  this.decreaseFill = params.decreaseFill || 'black';
-  this.volumeFill = params.volumeFill || 'grey';
-  this.range = {x: {min: 0, max: 100}, y: {min: 0, max: 100}};
-
-  if (params.xRange) {
-    this.range.x.min = params.xRange[0];
-    this.range.x.max = params.xRange[1];
-  }
-
-  if (params.yRange) {
-    this.range.y.min = params.yRange[0];
-    this.range.y.max = params.yRange[1];
-  }
-
-  this.init();
+  this.init(params);
 };
 
 Candles.prototype = {
-  init: function() {
+  init: function(params) {
+    // canvas setup
     this.cvs = document.createElement('canvas');
-    this.cvs.id = 'candlesCanvas';
-    this.cvs.width = this.width;
-    this.cvs.height = this.height;
     this.ctx = this.cvs.getContext('2d');
+    this.element = (params.append) ? document.getElementById(params.append) : document.body;
+    this.cvs.width = params.width || 500;
+    this.cvs.height = params.height || 400;
 
-    // graphing
-    this.graph = new Graph(this.range);
+    // graph
+    this.graph = new Graph(params);
 
+    // append to document
+    this.element.appendChild(this.cvs);
     if (this.append) {
       document.getElementById(this.append).appendChild(this.cvs);
     } else {
@@ -48,18 +30,33 @@ Candles.prototype = {
   },
 
   test: function() {
-    this.graph.graphCandle(this.ctx, {
-        O: 50,
-        C: 30,
-        H: 55,
-        L: 20,
-        T: 50,
-        V: 25,
-        width: 5
-    });
+    var price = 50, volume = 50;
+
+    for (var i=0; i<102; i+=2) {
+      price += Math.random() * 4 - 2;
+      volume += Math.random() * 10 - 5;
+
+      this.graph.graphCandle(this.ctx, {
+          O: price + Math.random() * 10 - 5,
+          C: price + Math.random() * 10 - 5,
+          H: price + Math.random() * 10,
+          L: price - Math.random() * 10,
+          T: i,
+          V: volume,
+          width: 1.5
+      });
+    }
   },
 
-  graph: function(candle) {
+  graphCandle: function(candle) {
 
   },
+
+  graphCandleSet: function(set) {
+
+  },
+
+  autoGraph: function(set) {
+    
+  }
 };
