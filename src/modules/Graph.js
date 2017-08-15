@@ -45,23 +45,32 @@ function Graph(params) {
     this.range.v.max = params.volumeRange[1];
     this.range.v.range = this.range.v.max - this.range.v.min;
   }
-  this.scaleVolume = 0.25;
+  this.scaleVolume = params.scaleVolume || 0.25;
+  this.candles = [];
 };
 
 Graph.prototype = {
   normY: function(y) {
+    // normalise in Y
+
     return (y - this.range.y.min) / (this.range.y.range);
   },
 
   normX: function(x) {
+    // normalise in X
+
     return (x - this.range.x.min) / (this.range.x.range);
   },
 
   normV: function(v) {
+    // normalise in V
+
     return (v - this.range.v.min) / (this.range.v.range);
   },
 
-  graphCandle: function(ctx, candle) {
+  drawCandle: function(ctx, candle) {
+    // process candle data, draw, store in buffer
+
     var O = (1 - this.normY(candle.O)) * ctx.canvas.height,
         C = (1 - this.normY(candle.C)) * ctx.canvas.height,
         H = (1 - this.normY(candle.H)) * ctx.canvas.height,
@@ -69,6 +78,13 @@ Graph.prototype = {
         T = this.normX(candle.T) * ctx.canvas.width,
         W = (candle.width / this.range.x.range) * ctx.canvas.width,
         V = (candle.V) ? (1 - this.normV(candle.V) * this.scaleVolume) * ctx.canvas.height : false;
+
+    this.draw(ctx, O, C, H, L, T, W, V);
+    this.candles.push({O: O, C: C, H: H, L: L, T: T, W: W, V: V});
+  },
+
+  draw: function(ctx, O, C, H, L, T, W, V) {
+    // draw normalised candle
 
     if (O <= C) {
       ctx.fillStyle = this.style.increase.fill;
@@ -93,6 +109,29 @@ Graph.prototype = {
     }
   },
 
+  redraw: function(ctx) {
+    // redraw candles in buffer
+
+    for (var i=0; i<this.candles.length; i++) {
+      this.draw(
+        ctx,
+        this.candles[i].O,
+        this.candles[i].C,
+        this.candles[i].H,
+        this.candles[i].L,
+        this.candles[i].T,
+        this.candles[i].W,
+        this.candles[i].V,
+      );
+    }
+  }
+
+  clear: function(ctx) {
+    // clear canvas and candle buffer
+
+    ctx.clear();
+    this.candles = [];
+  }
 };
 
 export { Graph };

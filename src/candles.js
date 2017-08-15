@@ -1,11 +1,7 @@
 import { Graph } from './modules/graph';
 
 var Candles = function(params) {
-  if (typeof params === 'undefined') {
-    var params = {};
-  }
-
-  this.init(params);
+  this.init((typeof params !== 'undefined') ? params : {});
 };
 
 Candles.prototype = {
@@ -22,11 +18,6 @@ Candles.prototype = {
 
     // append to document
     this.element.appendChild(this.cvs);
-    if (this.append) {
-      document.getElementById(this.append).appendChild(this.cvs);
-    } else {
-      document.body.appendChild(this.cvs);
-    }
   },
 
   test: function() {
@@ -36,7 +27,7 @@ Candles.prototype = {
       price += Math.random() * 4 - 2;
       volume += Math.random() * 10 - 5;
 
-      this.graph.graphCandle(this.ctx, {
+      this.graph.drawCandle(this.ctx, {
           O: price + Math.random() * 10 - 5,
           C: price + Math.random() * 10 - 5,
           H: price + Math.random() * 10,
@@ -57,6 +48,6 @@ Candles.prototype = {
   },
 
   autoGraph: function(set) {
-    
+
   }
 };

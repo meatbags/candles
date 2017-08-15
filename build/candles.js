@@ -46,6 +46,7 @@ function Graph(params) {
     this.range.v.range = this.range.v.max - this.range.v.min;
   }
   this.scaleVolume = 0.25;
+  this.candles = [];
 }
 
 Graph.prototype = {
@@ -61,7 +62,7 @@ Graph.prototype = {
     return (v - this.range.v.min) / (this.range.v.range);
   },
 
-  graphCandle: function(ctx, candle) {
+  drawCandle: function(ctx, candle) {
     var O = (1 - this.normY(candle.O)) * ctx.canvas.height,
         C = (1 - this.normY(candle.C)) * ctx.canvas.height,
         H = (1 - this.normY(candle.H)) * ctx.canvas.height,
@@ -93,14 +94,13 @@ Graph.prototype = {
     }
   },
 
+  draw: function(ctx, O, C, H, L, T, W, V) {
+
+  }
 };
 
 var Candles = function(params) {
-  if (typeof params === 'undefined') {
-    var params = {};
-  }
-
-  this.init(params);
+  this.init((typeof params !== 'undefined') ? params : {});
 };
 
 Candles.prototype = {
@@ -117,11 +117,6 @@ Candles.prototype = {
 
     // append to document
     this.element.appendChild(this.cvs);
-    if (this.append) {
-      document.getElementById(this.append).appendChild(this.cvs);
-    } else {
-      document.body.appendChild(this.cvs);
-    }
   },
 
   test: function() {
@@ -131,7 +126,7 @@ Candles.prototype = {
       price += Math.random() * 4 - 2;
       volume += Math.random() * 10 - 5;
 
-      this.graph.graphCandle(this.ctx, {
+      this.graph.drawCandle(this.ctx, {
           O: price + Math.random() * 10 - 5,
           C: price + Math.random() * 10 - 5,
           H: price + Math.random() * 10,
@@ -152,7 +147,7 @@ Candles.prototype = {
   },
 
   autoGraph: function(set) {
-    
+
   }
 };
 //# sourceMappingURL=candles.js.map
