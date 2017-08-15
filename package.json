@@ -5,7 +5,7 @@
   "main": "rollup.config.js",
   "scripts": {
     "build": "rollup -c",
-    "build-uglify": "rollup -c && uglifyjs build/candles.js -cm > build/candles.min.js",
+    "uglify": "npm run build && uglifyjs build/candles.js -cm > build/candles.min.js",
     "dev": "rollup -c -w -m"
   },
   "repository": {
@@ -19,8 +19,9 @@
   },
   "homepage": "https://github.com/meatbags/candles#readme",
   "devDependencies": {
-    "rollup": "^0.47.2",
+    "rollup": "^0.47.4",
     "rollup-watch": "^4.3.1",
     "uglify-js": "^3.0.27"
-  }
+  },
+  "dependencies": {}
 }

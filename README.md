@@ -2,5 +2,15 @@
 
 Beautiful candlestick graphs in Canvas.
 
-## get
+## build
+
+```
+git clone ...
+npm run build
+```
+
 ## use
+
+```
+...
+```
